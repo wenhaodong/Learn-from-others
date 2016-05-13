@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+#encoding:UTF-8
+import urllib.request
+import re
+if __name__ == '__main__':
+    url_res = 'https://www.ncl.ucar.edu/Document/Graphics/Resources/list_alpha_res.shtml'
+    html_content = urllib.request.urlopen(url_res).read().decode('UTF-8')
+    matches = re.findall(re.compile(r'^<a name="\w+"></a><strong>(\w+)</strong>',re.M),html_content)  
+    res_list = []
+    for i in matches:
+        res_name = i
+        res_list.append(res_name+'\n')
+    with open('ncl_res','w') as f_out:
+        f_out.writelines(res_list)
